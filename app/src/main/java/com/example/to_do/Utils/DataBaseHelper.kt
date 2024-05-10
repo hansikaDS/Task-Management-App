@@ -67,7 +67,7 @@ class DataBaseHelper(context: Context) :
     fun getAllTasks(): List<ToDoModel> {
         db = this.writableDatabase
         var cursor: Cursor? = null
-        val modelList = mutableListOf<ToDoModel>() // get as an array
+        val modelList = mutableListOf<ToDoModel>() // get as an array list
 
         db.beginTransaction()
         try {
