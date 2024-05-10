@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_do.Adapter.ToDoAdapter
@@ -48,7 +49,8 @@ class MainActivity : AppCompatActivity(), OnDialogCloseListener {
             AddNewTask.newInstance().show(supportFragmentManager, AddNewTask.TAG)
         }
 
-
+        val itemTouchHelper = ItemTouchHelper(RecyclerViewTouchHelper(adapter))
+        itemTouchHelper.attachToRecyclerView(recview)
 
 
     }
