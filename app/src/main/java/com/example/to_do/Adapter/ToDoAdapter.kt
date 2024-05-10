@@ -1,5 +1,6 @@
 package com.example.to_do.Adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -45,6 +46,7 @@ class ToDoAdapter(private val myDB: DataBaseHelper, private val activity: MainAc
         return mList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setTasks(mList: List<ToDoModel>) {
         this.mList = mList
         notifyDataSetChanged()
