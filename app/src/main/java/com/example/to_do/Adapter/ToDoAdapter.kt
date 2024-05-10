@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_do.AddNewTask
 import com.example.to_do.MainActivity
 import com.example.to_do.Model.ToDoModel
 import com.example.to_do.R
@@ -60,11 +61,17 @@ class ToDoAdapter(private val myDB: DataBaseHelper, private val activity: MainAc
 
     fun editItem(position: Int) {
         val item = mList[position]
+
         val bundle = Bundle().apply {
             putInt("id", item.id)
             putString("task", item.task)
         }
+
+        val task = AddNewTask()  // get Activity data to fragment
+        task.arguments = bundle
+        task.show(activity.supportFragmentManager, task.tag)
     }
+
 
     private fun toBoolean(num: Int): Boolean { // private function
         return num != 0
