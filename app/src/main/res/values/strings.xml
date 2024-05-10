@@ -2,5 +2,7 @@
     <string name="app_name">To-Do</string>
     <string name="title">To-Do App</string>
     <string name="tasks">To-Do Tasks</string>
+    <string name="fab">Add Tasks</string>
+
 
 </resources>
