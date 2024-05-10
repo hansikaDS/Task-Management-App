@@ -1,5 +1,6 @@
 package com.example.to_do
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -95,6 +96,13 @@ class AddNewTask : BottomSheetDialogFragment() {
 
     }
 
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        val activity = requireActivity()
+        if (activity is OnDialogCloseListener) {
+            (activity as OnDialogCloseListener).onDialogClose(dialog)
+        }
+    }
 
 
 }
