@@ -36,6 +36,7 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
         }
     }
 
+
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -48,7 +49,7 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
 
         // Draw background color and icon for left swipe (update)
-        if (dX > 0) {
+        if (dX < 0) {
             val itemView = viewHolder.itemView
             val background = ColorDrawable(Color.GREEN)
             background.setBounds(itemView.left, itemView.top, itemView.right + dX.toInt(), itemView.bottom)
@@ -66,7 +67,7 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
         }
 
         // Draw background color and icon for right swipe (delete)
-        if (dX < 0) {
+        if (dX > 0) {
             val itemView = viewHolder.itemView
             val background = ColorDrawable(Color.RED)
             background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
@@ -83,6 +84,7 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
             icon.draw(c)
         }
     }
+
 
 
 
