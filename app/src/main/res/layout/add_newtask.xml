@@ -3,39 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <EditText
+        android:id="@+id/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edittext"
-        android:paddingStart="8dp"
         android:hint="@string/hint"
-        android:paddingEnd="8dp"/>
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <!-- Add a DatePicker for selecting deadline date -->
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@+id/edittext"
+        android:layout_below="@+id/datePicker"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="@color/yellow"
         android:text="@string/save"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
+        android:textSize="20sp" />
 
 </RelativeLayout>
