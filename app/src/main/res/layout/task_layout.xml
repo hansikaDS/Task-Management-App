@@ -1,25 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp"
+    app:cardBackgroundColor="@color/blue"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp">
 
     <RelativeLayout
+        android:id="@+id/date1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:padding="8dp"
+        tools:ignore="DuplicateIds">
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:buttonTint="@color/yellow"
+            android:paddingStart="8dp"
             android:text="@string/task1"
-            android:paddingStart="8dp" />
+            android:textColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/date1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkbox"
+            android:layout_marginTop="8dp"
+            android:text="Deadline: 31/12/2024"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
