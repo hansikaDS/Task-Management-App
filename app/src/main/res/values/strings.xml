@@ -6,6 +6,8 @@
     <string name="task1">This is task 01.</string>
     <string name="hint">Enter New Task</string>
     <string name="save">Save</string>
+    <string name="manage_your_day">Manage Your Day</string>
+    <string name="to_do">To Do</string>
 
 
 </resources>

@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/checkbox"
             android:layout_marginTop="8dp"
-            android:text="Deadline: 31/12/2024"
+            android:text="Deadline: 25/05/2024"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

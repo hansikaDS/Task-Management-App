@@ -32,7 +32,11 @@ class AddNewTask : BottomSheetDialogFragment() {
     private lateinit var myDb: DataBaseHelper
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? { //parameters can be nullable
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? { //parameters can be nullable
         val v = inflater.inflate(R.layout.add_newtask, container, false)
         return v
     }
@@ -103,6 +107,5 @@ class AddNewTask : BottomSheetDialogFragment() {
             (activity as OnDialogCloseListener).onDialogClose(dialog)
         }
     }
-
 
 }

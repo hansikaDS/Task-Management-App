@@ -67,6 +67,7 @@ class ToDoAdapter(private val myDB: DataBaseHelper, private val activity: MainAc
         val bundle = Bundle().apply {
             putInt("id", item.id)
             putString("task", item.task)
+
         }
 
         val task = AddNewTask()  // get Activity data to fragment
