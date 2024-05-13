@@ -19,4 +19,5 @@ class ToDoModel {
             field = value
         }
 
+    var selectedDate: String? = null // Change the type to String
 }

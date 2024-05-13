@@ -9,59 +9,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.EditText
+import androidx.fragment.app.DialogFragment
 import com.example.to_do.Model.ToDoModel
 import com.example.to_do.Utils.DataBaseHelper
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AddNewTask : BottomSheetDialogFragment() {
+class AddNewTask :  BottomSheetDialogFragment() {
 
     companion object {
-        const val TAG = "AddNewTask"
+        const val TAG = "AddNewTaskDialog"
 
         fun newInstance(): AddNewTask {
             return AddNewTask()
         }
     }
 
-    // widgets
-
     private lateinit var editText: EditText
     private lateinit var btn_save: Button
-
+    private lateinit var datePicker: DatePicker
     private lateinit var myDb: DataBaseHelper
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? { //parameters can be nullable
-        val v = inflater.inflate(R.layout.add_newtask, container, false)
-        return v
+    ): View? {
+        val view = inflater.inflate(R.layout.add_newtask, container, false)
+        editText = view.findViewById(R.id.edittext)
+        btn_save = view.findViewById(R.id.btn_save)
+        datePicker = view.findViewById(R.id.datePicker)
+        myDb = DataBaseHelper(requireActivity())
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        editText = view.findViewById(R.id.edittext)
-        btn_save = view.findViewById(R.id.btn_save)
-
-        myDb = DataBaseHelper(requireActivity())
-
         var isUpdate = false
 
         val bundle = arguments
-        if (bundle != null) { // check whether bundle has data or not
+        if (bundle != null) {
             isUpdate = true
-            val task = bundle.getString("task") // retrieving data from bundle
+            val task = bundle.getString("task")
             editText.setText(task)
-
-            if (!task.isNullOrEmpty()) { // save button will enable only if there is a text.
+            if (!task.isNullOrEmpty()) {
                 btn_save.isEnabled = false
+                btn_save.setBackgroundColor(Color.GRAY)
             }
         }
-
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -69,7 +66,7 @@ class AddNewTask : BottomSheetDialogFragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
                     btn_save.isEnabled = false
-                    btn_save.setBackgroundColor(Color.GRAY) // change the color of button when it is unable.
+                    btn_save.setBackgroundColor(Color.GRAY)
                 } else {
                     btn_save.isEnabled = true
                     btn_save.setBackgroundColor(resources.getColor(R.color.yellow))
@@ -83,21 +80,22 @@ class AddNewTask : BottomSheetDialogFragment() {
         btn_save.setOnClickListener {
             val text = editText.text.toString()
 
+            val selectedDate = "${datePicker.year}-${datePicker.month}-${datePicker.dayOfMonth}"
+
             if (finalIsUpdate) {
-                arguments?.getInt("id")?.let { id -> // let is used for safe call and null check.
+                arguments?.getInt("id")?.let { id ->
                     myDb.updateTask(id, text)
                 }
             } else {
                 val item = ToDoModel().apply {
                     task = text
                     status = 0
+                    this.selectedDate = selectedDate
                 }
                 myDb.insertTask(item)
             }
             dismiss()
         }
-
-
     }
 
     override fun onDismiss(dialog: DialogInterface) {
@@ -107,5 +105,4 @@ class AddNewTask : BottomSheetDialogFragment() {
             (activity as OnDialogCloseListener).onDialogClose(dialog)
         }
     }
-
 }

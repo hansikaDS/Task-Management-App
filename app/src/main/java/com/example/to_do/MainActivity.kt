@@ -55,12 +55,10 @@ class MainActivity : AppCompatActivity(), OnDialogCloseListener {
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onDialogClose(dialogInterface: DialogInterface) {
-
         mList = myDB.getAllTasks().reversed()
         adapter.setTasks(mList)
         adapter.notifyDataSetChanged()
-
     }
+
 }

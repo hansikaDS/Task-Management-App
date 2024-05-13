@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_do.AddNewTask
 import com.example.to_do.MainActivity
@@ -22,6 +23,7 @@ class ToDoAdapter(private val myDB: DataBaseHelper, private val activity: MainAc
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) { // this is a inner class define within the ToDoAdapter class
         val checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
+        val dateTextView: TextView = itemView.findViewById(R.id.date1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -32,7 +34,10 @@ class ToDoAdapter(private val myDB: DataBaseHelper, private val activity: MainAc
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = mList[position]
         holder.checkBox.text = item.task
+        holder.dateTextView.text = item.selectedDate?.toString() ?: ""
         holder.checkBox.isChecked = toBoolean(item.status)
+
+
         holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 myDB.updateStatus(item.id, 1) // if clicked on check box , status is done.

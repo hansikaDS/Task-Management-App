@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:buttonTint="@color/yellow"
             android:paddingStart="8dp"
-            android:text="@string/task1"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:ignore="RtlSymmetry" />
 
 
         <TextView
@@ -32,9 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/checkbox"
             android:layout_marginTop="8dp"
-            android:text="Deadline: 25/05/2024"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
 
     </RelativeLayout>
 
