@@ -1,22 +1,21 @@
 package com.example.to_do
 
+import com.example.to_do.Adapter.ToDoAdapter
 import android.annotation.SuppressLint
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.to_do.Adapter.ToDoAdapter
 import com.example.to_do.Model.ToDoModel
-import com.example.to_do.Utils.DataBaseHelper
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), OnDialogCloseListener {
 
     private lateinit var recview: RecyclerView
     private lateinit var fab: FloatingActionButton
-    private lateinit var myDB: DataBaseHelper
+
 
     private var mList: List<ToDoModel> = listOf()
     private lateinit var adapter: ToDoAdapter
@@ -30,12 +29,12 @@ class MainActivity : AppCompatActivity(), OnDialogCloseListener {
 
         recview = findViewById(R.id.recview)
         fab = findViewById(R.id.fab)
-        myDB = DataBaseHelper(this@MainActivity)
+
 
         mList = ArrayList()
-        adapter = ToDoAdapter(myDB, this@MainActivity)
 
-        mList = myDB.getAllTasks().reversed()
+
+
         adapter.setTasks(mList)
         adapter.notifyDataSetChanged()
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity(), OnDialogCloseListener {
     }
 
     override fun onDialogClose(dialogInterface: DialogInterface) {
-        mList = myDB.getAllTasks().reversed()
+
         adapter.setTasks(mList)
         adapter.notifyDataSetChanged()
     }

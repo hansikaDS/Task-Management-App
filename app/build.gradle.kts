@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,8 @@ plugins {
 android {
     namespace = "com.example.to_do"
     compileSdk = 34
+
+
 
     defaultConfig {
         applicationId = "com.example.to_do"
@@ -33,6 +37,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+
 }
 
 dependencies {

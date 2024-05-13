@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
-import androidx.fragment.app.DialogFragment
 import com.example.to_do.Model.ToDoModel
-import com.example.to_do.Utils.DataBaseHelper
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AddNewTask :  BottomSheetDialogFragment() {
@@ -29,7 +27,7 @@ class AddNewTask :  BottomSheetDialogFragment() {
     private lateinit var editText: EditText
     private lateinit var btn_save: Button
     private lateinit var datePicker: DatePicker
-    private lateinit var myDb: DataBaseHelper
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +38,7 @@ class AddNewTask :  BottomSheetDialogFragment() {
         editText = view.findViewById(R.id.edittext)
         btn_save = view.findViewById(R.id.btn_save)
         datePicker = view.findViewById(R.id.datePicker)
-        myDb = DataBaseHelper(requireActivity())
+
         return view
     }
 
@@ -82,19 +80,7 @@ class AddNewTask :  BottomSheetDialogFragment() {
 
             val selectedDate = "${datePicker.year}-${datePicker.month}-${datePicker.dayOfMonth}"
 
-            if (finalIsUpdate) {
-                arguments?.getInt("id")?.let { id ->
-                    myDb.updateTask(id, text)
-                }
-            } else {
-                val item = ToDoModel().apply {
-                    task = text
-                    status = 0
-                    this.selectedDate = selectedDate
-                }
-                myDb.insertTask(item)
-            }
-            dismiss()
+
         }
     }
 
