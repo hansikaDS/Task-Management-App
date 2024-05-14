@@ -2,41 +2,49 @@ package com.example.to_do.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.to_do.AddNewTask
-import com.example.to_do.MainActivity
-import com.example.to_do.Model.ToDoModel
+import com.example.to_do.Model.Task
 import com.example.to_do.R
+import com.example.to_do.TaskDao
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class ToDoAdapter( private val activity: MainActivity) : // constructor parameters are directly define within the class header
-
+class ToDoAdapter(private val taskDao: TaskDao) :
     RecyclerView.Adapter<ToDoAdapter.MyViewHolder>() {
 
-    private var mList: List<ToDoModel> = listOf()
+    private var mList: List<Task> = listOf()
+    private lateinit var context: Context
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) { // this is a inner class define within the com.example.to_do.Adapter.ToDoAdapter class
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val checkBox: CheckBox = itemView.findViewById(R.id.checkbox)
-        val dateTextView: TextView = itemView.findViewById(R.id.date1)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.task_layout, parent, false)
+        context = parent.context
         return MyViewHolder(v)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = mList[position]
-        holder.checkBox.text = item.task
-        holder.dateTextView.text = item.selectedDate?.toString() ?: ""
-        holder.checkBox.isChecked = toBoolean(item.status)
-
-
+        holder.checkBox.text = item.name
+        holder.checkBox.isChecked = item.status != 0
+        holder.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            GlobalScope.launch(Dispatchers.IO) {
+                if (isChecked) {
+                    taskDao.updateTask(item.copy(status = 1))
+                } else {
+                    taskDao.updateTask(item.copy(status = 0))
+                }
+            }
+        }
 
     }
 
@@ -45,39 +53,21 @@ class ToDoAdapter( private val activity: MainActivity) : // constructor paramete
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setTasks(mList: List<ToDoModel>) {
-        this.mList = mList
+    fun setTasks(tasks: List<Task>) {
+        mList = tasks
         notifyDataSetChanged()
     }
 
-    fun deletTask(position: Int) {
-        val item = mList[position]
-        val newList = mList.toMutableList()
-        newList.removeAt(position)
-        mList = newList
-        notifyItemRemoved(position)
-    }
-
-    fun editItem(position: Int) {
-        val item = mList[position]
-
-        val bundle = Bundle().apply {
-            putInt("id", item.id)
-            putString("task", item.task)
-
+    @OptIn(DelicateCoroutinesApi::class)
+    fun deleteTask(position: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            taskDao.deleteTask(mList[position])
         }
-
-        val task = AddNewTask()  // get Activity data to fragment
-        task.arguments = bundle
-        task.show(activity.supportFragmentManager, task.tag)
     }
 
 
-    private fun toBoolean(num: Int): Boolean { // private function
-        return num != 0
-    }
 
     fun getContext(): Context {
-        return activity
+        return context
     }
 }

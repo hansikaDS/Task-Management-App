@@ -23,7 +23,6 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
                 .setTitle("Delete Task")
                 .setMessage("Are You Sure ?")
                 .setPositiveButton("Yes") { dialog, _ ->
-                    adapter.deletTask(position)
                     dialog.dismiss()
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
@@ -31,8 +30,6 @@ class RecyclerViewTouchHelper(private val adapter: ToDoAdapter) : ItemTouchHelpe
                     dialog.dismiss()
                 }
                 .show()
-        } else {
-            adapter.editItem(position)
         }
     }
 

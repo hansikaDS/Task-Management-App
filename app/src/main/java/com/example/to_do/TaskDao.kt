@@ -1,15 +1,18 @@
 package com.example.to_do
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.example.to_do.Model.Task
 
 @Dao
 interface TaskDao {
     @Query("SELECT * FROM tasks")
-    fun getAllTasks(): LiveData<List<Task>>
+    suspend fun getAllTasks(): List<Task>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insertTask(task: Task)
 
     @Update
@@ -18,3 +21,4 @@ interface TaskDao {
     @Delete
     suspend fun deleteTask(task: Task)
 }
+
